@@ -110,7 +110,7 @@ export default async function handler(req, res) {
     <div style="text-align:center;margin-top:32px;">
       <p style="color:#6c7a99;font-size:12px;line-height:1.6;">
         Questions? Reply to this email or contact us at<br>
-        <a href="mailto:support@pelvicfitmen.com" style="color:#5b8dee;">support@pelvicfitmen.com</a>
+        <a href="mailto:support@pelvicfit.xyz" style="color:#5b8dee;">support@pelvicfit.xyz</a>
       </p>
       <p style="color:#4a5568;font-size:11px;margin-top:16px;">
         © ${new Date().getFullYear()} PelvicFit Men. All rights reserved.<br>
