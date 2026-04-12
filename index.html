@@ -299,7 +299,7 @@
     .store-card .store-rating { font-size: 24px; font-weight: 800; display: inline; }
     .store-card .store-stars { color: #f59e0b; font-size: 14px; letter-spacing: 1px; }
     .store-card .store-label { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
-    .trust-hero { width: 100%; border-radius: 16px; margin-top: 8px; }
+    .trust-hero { width: 100%; max-height: 180px; object-fit: cover; border-radius: 16px; margin-top: 8px; }
 
     /* ── RESULTS REVEAL ── */
     .results-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center; }
@@ -382,12 +382,15 @@
 
     /* ── CONTINUE BTN ── */
     .footer {
-      position: sticky;
+      position: fixed;
       bottom: 0;
-      padding: 16px 20px 24px;
-      background: linear-gradient(to top, #0a0e2a 60%, transparent);
+      left: 0;
+      right: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 16px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+      background: linear-gradient(to top, #0a0e2a 70%, rgba(10,14,42,0.95) 85%, transparent);
       z-index: 50;
-      flex-shrink: 0;
     }
     .btn-continue {
       width: 100%; padding: 20px;
@@ -598,13 +601,15 @@ const questions = [
       { label: "Always", emoji: "🆘" },
     ]
   },
-  // 7 — info: strength chart
+  // 7 — info: strength insight (unique content, not duplicate chart)
   {
-    type: 'info-chart',
-    title: "Regular training can multiply your pelvic floor strength significantly.",
-    chartLabel: "PF Muscle Strength:",
-    multiplier: "3.5X",
-    weeks: ["Week 1","Week 2","Week 3","Week 4"]
+    type: 'info-days',
+    title: "Pelvic floor training builds strength fast",
+    days: [
+      { name: "Week 1–2", icon: "🌱", desc: "Build awareness — learn to isolate and engage your pelvic muscles correctly" },
+      { name: "Week 3–4", icon: "💪", desc: "Build endurance — your hold times and rep counts increase noticeably" },
+      { name: "Week 5+", icon: "🚀", desc: "Real results — improved control, firmness, and confidence during intimacy" },
+    ]
   },
   // 8
   {
@@ -1495,20 +1500,41 @@ function goBack() {
 
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
+// ─── BROWSER HISTORY (Mobile Back Button) ────────────
+// Push a fake history entry each step so the phone's back button
+// triggers our goBack() instead of leaving the page entirely.
+function pushStepHistory() {
+  history.pushState({ step: step }, '');
+}
+window.addEventListener('popstate', function(e) {
+  // Browser back button was pressed
+  goBack();
+  // Re-push state so next back press also stays in the quiz
+  if (step > 0) pushStepHistory();
+});
+
+// Patch advance and goToScreen to push history entries
+const _origAdvance = advance;
+advance = function() {
+  _origAdvance();
+  pushStepHistory();
+};
+const _origGoToScreen = goToScreen;
+goToScreen = function(type) {
+  _origGoToScreen(type);
+  pushStepHistory();
+};
+
 // ─── INIT ─────────────────────────────────────────────
-// Check if returning from Stripe checkout
 const urlParams = new URLSearchParams(window.location.search);
 const stripeReturn = urlParams.get('stripe_return');
 const returnType = urlParams.get('type');
 
 if (stripeReturn === 'success') {
-  // Returning from Stripe — determine which page to show
   if (returnType === 'premium') {
-    // Came from main offer — show upsell
     trackEvent('Purchase', { value: 19.97, currency: 'USD', content_name: 'Premium Plan' });
     goToScreen('upsell');
   } else if (returnType === 'bundle' || returnType === 'starter') {
-    // Came from upsell or downsell — show thank you
     trackEvent('Purchase', { value: returnType === 'bundle' ? 29.97 : 9.97, currency: 'USD', content_name: returnType === 'bundle' ? 'Wellness Bundle' : 'Starter Plan' });
     goToScreen('thankyou');
   } else {
@@ -1516,6 +1542,7 @@ if (stripeReturn === 'success') {
   }
 } else {
   renderStep();
+  pushStepHistory(); // Initial history entry
 }
 setupExitIntent();
 </script>
