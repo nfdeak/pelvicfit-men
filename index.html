@@ -382,7 +382,10 @@
     .footer {
       padding: 16px 20px 24px;
       margin-top: auto;
+      flex-shrink: 0;
     }
+    /* Prevent excessive white space on short screens */
+    .screen { min-height: 0; }
     .btn-continue {
       width: 100%; padding: 20px;
       background: linear-gradient(135deg, var(--red-dark), var(--red-light));
@@ -970,7 +973,8 @@ function renderInfoChart(q) {
       <div class="chart-weeks">
         ${q.weeks.map(w => `<span>${w}</span>`).join('')}
       </div>
-    </div>`;
+    </div>
+    ${q.hint ? `<div class="hint-row" style="margin-top:16px"><span class="hint-icon">💡</span><span class="hint-text">${q.hint}</span></div>` : ''}`;
 }
 
 // ─── LEADERBOARD ─────────────────────────────────────
@@ -1320,7 +1324,16 @@ function handleDownsell() {
 }
 
 function skipDownsell() {
-  goToScreen('thankyou');
+  // User declined everything — show a soft exit, not the thank-you
+  document.getElementById('screen-wrap').innerHTML = `
+    <div class="success-hero" style="padding:40px 0">
+      <span class="success-icon">👋</span>
+      <h2>No worries!</h2>
+      <p style="margin-bottom:24px">Your quiz results have been saved. If you change your mind, check your email — we've sent you a special link to get your plan at a discounted price.</p>
+      <p style="font-size:13px;color:var(--text-dim)">Questions? <a href="mailto:support@pelvicfitmen.com" style="color:#5b8dee">support@pelvicfitmen.com</a></p>
+    </div>`;
+  document.getElementById('footer-wrap').innerHTML = '';
+  document.getElementById('progress-fill').style.width = '100%';
 }
 
 // ─── THANK YOU ───────────────────────────────────────
