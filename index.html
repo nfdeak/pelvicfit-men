@@ -1406,25 +1406,29 @@ function submitQuizData(email) {
   const levelLabels = ['Beginner','Intermediate','Advanced'];
   const payload = {
     email: email,
-    timestamp: new Date().toISOString(),
-    goal: goalLabels[answers[0]] || 'Unknown',
-    primary_focus: ['Firmness','Endurance','Pleasure'][answers[1]] || 'Unknown',
-    experience: levelLabels[answers[3]] || 'Unknown',
-    daily_time: ['<5 min','5-10 min','10-20 min','20+ min'][answers[4]] || 'Unknown',
-    all_answers: JSON.stringify(answers),
-    user_agent: navigator.userAgent,
-    referrer: document.referrer || 'direct'
+    quizData: {
+      goal: goalLabels[answers[0]] || 'Unknown',
+      primary_focus: ['Firmness','Endurance','Pleasure'][answers[1]] || 'Unknown',
+      experience: levelLabels[answers[3]] || 'Unknown',
+      daily_time: ['<5 min','5-10 min','10-20 min','20+ min'][answers[4]] || 'Unknown',
+      score: (3 + Math.random()*1.5).toFixed(1),
+      answers: answers,
+      timestamp: new Date().toISOString(),
+      referrer: document.referrer || 'direct',
+    }
   };
 
-  // For now, log to console. Replace with Formspree/webhook URL:
-  console.log('📋 Quiz Data Submitted:', payload);
+  console.log('📋 Quiz Data:', payload);
 
-  // Example Formspree integration (uncomment when ready):
-  // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-  //   method: 'POST',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(payload)
-  // }).catch(err => console.error('Submission error:', err));
+  // Send to our API (saves to Brevo + sends confirmation email)
+  fetch('/api/submit-quiz', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => console.log('✅ Submitted:', data))
+  .catch(err => console.error('❌ Submit error:', err));
 }
 
 // ─── TRACKING EVENTS ────────────────────────────────
