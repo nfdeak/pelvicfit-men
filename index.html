@@ -593,12 +593,12 @@ const questions = [
   // 6
   {
     type: 'single',
-    title: "How difficult is it to stay firm throughout intimacy?",
+    title: "How long do you typically last during intimacy?",
     options: [
-      { label: "No difficulty", emoji: "✅" },
-      { label: "Sometimes", emoji: "🌙" },
-      { label: "Often", emoji: "⚠️" },
-      { label: "Always", emoji: "🆘" },
+      { label: "Less than 2 minutes", emoji: "⚠️" },
+      { label: "2–5 minutes", emoji: "🌙" },
+      { label: "5–15 minutes", emoji: "✅" },
+      { label: "15+ minutes", emoji: "🌟" },
     ]
   },
   // 7 — info: strength insight (unique content, not duplicate chart)
@@ -606,10 +606,11 @@ const questions = [
     type: 'info-days',
     title: "Pelvic floor training builds strength fast",
     days: [
-      { name: "Week 1–2", icon: "🌱", desc: "Build awareness — learn to isolate and engage your pelvic muscles correctly" },
-      { name: "Week 3–4", icon: "💪", desc: "Build endurance — your hold times and rep counts increase noticeably" },
-      { name: "Week 5+", icon: "🚀", desc: "Real results — improved control, firmness, and confidence during intimacy" },
-    ]
+      { day: "Week 1–2", icon: "🌱", desc: "Build awareness" },
+      { day: "Week 3–4", icon: "💪", desc: "Build endurance" },
+      { day: "Week 5+", icon: "🚀", desc: "Real results" },
+    ],
+    hint: "Most men notice improvements within the first 2–3 weeks of consistent training."
   },
   // 8
   {
