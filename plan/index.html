@@ -659,45 +659,50 @@
       return;
     }
 
-    try {
-      // 1. Fetch profile + progress from KV
-      const res = await fetch(`/api/protocol?token=${App.token}`);
-      if (res.status === 404) {
-        showError('Protocol not found', 'This link may have expired or is invalid.<br><a href="mailto:support@pelvicfit.xyz">Contact support</a> if you believe this is a mistake.');
-        return;
-      }
-      const data = await res.json();
-      App.profile = data.profile;
-      App.progress = data.progress;
-      App.currentPlan = App.profile.plan || 'firmness';
-
-      // 2. Merge with localStorage (take the most complete version)
-      mergeProgress();
-
-      // 3. Load content JSON
-      await loadContent(App.currentPlan);
-
-      // 4. Check if protocol is complete
-      if (App.progress.completedDays.length >= 28) {
-        showCompletion();
-      } else {
-        showDashboard();
-      }
-    } catch (err) {
-      console.error('Init error:', err);
-      // Fallback: try localStorage only
-      const localProgress = localStorage.getItem(`pf_progress_${App.token}`);
-      if (localProgress) {
-        App.progress = JSON.parse(localProgress);
-        try {
-          await loadContent(App.currentPlan || 'firmness');
-          showDashboard();
-        } catch {
-          showError('Connection error', 'Unable to load your protocol. Please check your internet connection and try again.');
+    // 1. Load profile from localStorage (set by create-protocol on purchase)
+    const localProfileKey = `pf_profile_${App.token}`;
+    const localProfile = JSON.parse(localStorage.getItem(localProfileKey) || 'null');
+    
+    if (localProfile) {
+      App.profile = localProfile;
+      App.currentPlan = localProfile.plan || 'firmness';
+    } else {
+      // First visit on this device — try API for validation
+      try {
+        const res = await fetch(`/api/protocol?token=${App.token}`);
+        if (res.status === 404) {
+          showError('Protocol not found', 'This link may have expired or is invalid.<br><a href="mailto:support@pelvicfit.xyz">Contact support</a> if you believe this is a mistake.');
+          return;
         }
-      } else {
-        showError('Connection error', 'Unable to load your protocol. Please check your internet connection and <a href="mailto:support@pelvicfit.xyz">contact support</a>.');
+        const data = await res.json();
+        App.profile = data.profile;
+        App.currentPlan = App.profile.plan || 'firmness';
+        // Save to localStorage for future visits
+        localStorage.setItem(localProfileKey, JSON.stringify(App.profile));
+      } catch (err) {
+        // No API, no local profile — use defaults (token in URL = access granted)
+        App.profile = { plan: 'firmness', tier: 'premium' };
+        App.currentPlan = 'firmness';
+        localStorage.setItem(localProfileKey, JSON.stringify(App.profile));
       }
+    }
+
+    // 2. Load progress from localStorage
+    mergeProgress();
+
+    // 3. Load content JSON
+    try {
+      await loadContent(App.currentPlan);
+    } catch (err) {
+      showError('Connection error', 'Unable to load your protocol. Please check your internet connection and try again.');
+      return;
+    }
+
+    // 4. Check if protocol is complete
+    if (App.progress.completedDays.length >= 28) {
+      showCompletion();
+    } else {
+      showDashboard();
     }
   }
 

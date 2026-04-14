@@ -1,15 +1,12 @@
-import { Redis } from '@upstash/redis';
-
-const redis = Redis.fromEnv();
-
 /**
  * Stage 2: Customer Activation (Post-payment)
  * 
  * Called from the Thank You page after Stripe redirects back.
  * 1. Generates a unique access token
- * 2. Stores user profile in Upstash Redis
- * 3. Updates Brevo: move to Customers list, set STATUS=customer
- * 4. Sends delivery email with dashboard link
+ * 2. Updates Brevo: move to Customers list, set STATUS=customer, store token
+ * 3. Sends delivery email with dashboard link
+ * 
+ * No external DB required — Brevo stores the profile, localStorage stores progress.
  */
 
 function generateToken() {
@@ -53,29 +50,7 @@ export default async function handler(req, res) {
     const accessUrl = `https://pelvicfit.xyz/plan/${token}`;
     const plan = mapGoalToPlan(goal);
 
-    // 2. Store profile in Vercel KV (1 year TTL)
-    await redis.set(`protocol:${token}`, {
-      email,
-      goal: goal || '',
-      experience: experience || '',
-      score: score || '',
-      tier: tier || 'premium',
-      plan,
-      createdAt: new Date().toISOString(),
-    }, { ex: 365 * 24 * 60 * 60 });
-
-    // Initialize empty progress
-    await redis.set(`progress:${token}`, {
-      completedDays: [],
-      currentStreak: 0,
-      longestStreak: 0,
-      lastCompletedDate: null,
-      weeklyScores: {},
-      startDate: new Date().toISOString().split('T')[0],
-    }, { ex: 365 * 24 * 60 * 60 });
-
-    // 3. Update Brevo: move from Unpaid → Customers
-    // First, add to Customers list with updated attributes
+    // 2. Update Brevo: move from Unpaid → Customers, store token + profile
     await fetch('https://api.brevo.com/v3/contacts', {
       method: 'POST',
       headers: {
@@ -96,7 +71,7 @@ export default async function handler(req, res) {
       }),
     });
 
-    // 4. Send delivery email with dashboard link
+    // 3. Send delivery email with dashboard link
     const planNames = {
       firmness: 'Firmness Enhancement',
       endurance: 'Endurance Mastery',
@@ -192,6 +167,8 @@ export default async function handler(req, res) {
       success: true,
       token,
       accessUrl,
+      plan,
+      tier: tier || 'premium',
       message: 'Protocol created, customer activated, delivery email sent',
     });
 

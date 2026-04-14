@@ -1590,6 +1590,14 @@ if (stripeReturn === 'success') {
     .then(data => {
       console.log('✅ Protocol created:', data);
       window._protocolUrl = data.accessUrl;
+      // Save profile to localStorage for the dashboard to use
+      if (data.token) {
+        localStorage.setItem(`pf_profile_${data.token}`, JSON.stringify({
+          plan: data.plan || 'firmness',
+          tier: data.tier || purchaseType,
+          createdAt: new Date().toISOString(),
+        }));
+      }
       // Re-render thank you page to include the link
       if (questions[step]?.type === 'thankyou') renderStep();
     })
