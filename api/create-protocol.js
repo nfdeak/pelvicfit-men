@@ -47,8 +47,8 @@ export default async function handler(req, res) {
 
     // 1. Generate unique token
     const token = generateToken();
-    const accessUrl = `https://pelvicfit.xyz/plan/${token}`;
     const plan = mapGoalToPlan(goal);
+    const accessUrl = `https://pelvicfit.xyz/plan/${token}?plan=${plan}`;
 
     // 2. Update Brevo: move from Unpaid → Customers, store token + profile
     await fetch('https://api.brevo.com/v3/contacts', {

@@ -667,7 +667,11 @@
       App.profile = localProfile;
       App.currentPlan = localProfile.plan || 'firmness';
     } else {
-      // First visit on this device — try API for validation
+      // First visit on this device — read plan from URL query param (set by create-protocol email)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPlan = urlParams.get('plan');
+      
+      // Try API for validation
       try {
         const res = await fetch(`/api/protocol?token=${App.token}`);
         if (res.status === 404) {
@@ -676,13 +680,15 @@
         }
         const data = await res.json();
         App.profile = data.profile;
-        App.currentPlan = App.profile.plan || 'firmness';
+        // URL param takes priority over API default
+        App.profile.plan = urlPlan || App.profile.plan || 'firmness';
+        App.currentPlan = App.profile.plan;
         // Save to localStorage for future visits
         localStorage.setItem(localProfileKey, JSON.stringify(App.profile));
       } catch (err) {
-        // No API, no local profile — use defaults (token in URL = access granted)
-        App.profile = { plan: 'firmness', tier: 'premium' };
-        App.currentPlan = 'firmness';
+        // No API — use URL param or defaults
+        App.profile = { plan: urlPlan || 'firmness', tier: 'premium' };
+        App.currentPlan = App.profile.plan;
         localStorage.setItem(localProfileKey, JSON.stringify(App.profile));
       }
     }
