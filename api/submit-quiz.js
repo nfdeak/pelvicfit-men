@@ -105,7 +105,7 @@ export default async function handler(req, res) {
       </p>
 
       <div style="text-align:center;margin:24px 0;">
-        <a href="https://pelvicfit.xyz" style="display:inline-block;background:linear-gradient(135deg,#1abc9c,#2ecc71);color:white;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:16px;">
+        <a href="https://buy.stripe.com/9B66oI7Q111H8vd81yb3q01?prefilled_email=${encodeURIComponent(email)}" style="display:inline-block;background:linear-gradient(135deg,#1abc9c,#2ecc71);color:white;text-decoration:none;padding:14px 32px;border-radius:8px;font-weight:700;font-size:16px;">
           Activate My Protocol →
         </a>
       </div>
