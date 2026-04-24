@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PelvicFit — The 28-Day Protocol for Men</title>
+  <meta name="description" content="Science-backed pelvic floor training protocol. 75% of men saw improvement in clinical trials. Take the free 2-minute assessment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '27117930631145953');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=27117930631145953&ev=PageView&noscript=1"
+  /></noscript>
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PGMSSLBB9W"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-PGMSSLBB9W');
+  </script>
+
+  <!-- Microsoft Clarity -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wgl0uzj2nj");
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0e2a;
+      --bg2: #0d1235;
+      --card: #131842;
+      --card2: #1a1f4a;
+      --border: #2a3060;
+      --green: #1abc9c;
+      --green2: #2ecc71;
+      --green-dark: #16a085;
+      --amber: #f39c12;
+      --red: #e74c3c;
+      --text: #ffffff;
+      --text-muted: #a0aec0;
+      --text-dim: #6c7a99;
+      --gradient: linear-gradient(135deg, #1abc9c, #2ecc71);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* Utility */
+    .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+    .section { padding: 64px 0; }
+    .section-divider {
+      width: 80px; height: 3px;
+      background: var(--gradient);
+      margin: 48px auto;
+      border-radius: 3px;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 48px;
+      text-align: center;
+      background: linear-gradient(180deg, #0d1240 0%, var(--bg) 100%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(26, 188, 156, 0.15);
+      color: var(--green);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 6vw, 44px);
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    /* CTA Button */
+    .cta-btn {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      text-decoration: none;
+      padding: 16px 40px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 17px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(26, 188, 156, 0.3);
+    }
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26, 188, 156, 0.4);
+    }
+    .cta-sub {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin-top: 12px;
+    }
+
+    /* Story Section */
+    .story { background: var(--bg2); }
+    .story-text {
+      font-size: 18px;
+      color: #c8d0e8;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .story-text strong {
+      color: var(--text);
+    }
+    .story-text .highlight {
+      color: var(--green);
+      font-weight: 600;
+    }
+    .story-text .dim {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    /* Myth Busting */
+    .myth-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .myth-label {
+      display: inline-block;
+      background: rgba(231, 76, 60, 0.15);
+      color: var(--red);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .myth-card h3 {
+      font-size: 22px;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    .myth-card p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+    .truth-label {
+      display: inline-block;
+      background: rgba(26, 188, 156, 0.15);
+      color: var(--green);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 16px;
+      margin-bottom: 8px;
+    }
+
+    /* Protocol Section */
+    .protocol-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .protocol-header h2 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+    .protocol-header p {
+      color: var(--text-muted);
+      font-size: 17px;
+    }
+
+    .phase-card {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 32px;
+      align-items: flex-start;
+    }
+    .phase-icon {
+      flex-shrink: 0;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .phase-icon.p1 { background: rgba(52, 152, 219, 0.15); }
+    .phase-icon.p2 { background: rgba(26, 188, 156, 0.15); }
+    .phase-icon.p3 { background: rgba(46, 204, 113, 0.15); }
+    .phase-icon.p4 { background: rgba(243, 156, 18, 0.15); }
+
+    .phase-content h3 {
+      font-size: 19px;
+      margin-bottom: 6px;
+    }
+    .phase-content .phase-time {
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .phase-content p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #0d1240, #131852);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      text-align: center;
+    }
+    .stat-item h3 {
+      font-size: clamp(32px, 6vw, 48px);
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-item p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .stat-source {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    /* What's Inside */
+    .inside-item {
+      display: flex;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .inside-item:last-child { border-bottom: none; }
+    .inside-check {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(26, 188, 156, 0.15);
+      color: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .inside-item h4 {
+      font-size: 17px;
+      margin-bottom: 4px;
+    }
+    .inside-item p {
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* Pricing */
+    .pricing-section { text-align: center; background: var(--bg2); }
+    .pricing-card {
+      background: var(--card);
+      border: 2px solid var(--green);
+      border-radius: 20px;
+      padding: 40px 32px;
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gradient);
+      color: white;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .pricing-old {
+      font-size: 20px;
+      color: var(--text-dim);
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .pricing-current {
+      font-size: 48px;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+    .pricing-label {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+    .pricing-features {
+      text-align: left;
+      margin-bottom: 28px;
+    }
+    .pricing-features li {
+      list-style: none;
+      padding: 8px 0;
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 700;
+      margin-right: 10px;
+    }
+    .guarantee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* FAQ */
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      cursor: pointer;
+    }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .faq-question span { transition: transform 0.3s; }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 200px;
+      padding-top: 12px;
+    }
+    .faq-item.open .faq-question span {
+      transform: rotate(45deg);
+    }
+
+    /* Final CTA */
+    .final-cta {
+      text-align: center;
+      padding: 80px 0;
+      background: linear-gradient(180deg, var(--bg) 0%, #0d1240 100%);
+    }
+    .final-cta h2 {
+      font-size: clamp(24px, 5vw, 36px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .final-cta p {
+      color: var(--text-muted);
+      font-size: 17px;
+      max-width: 520px;
+      margin: 0 auto 32px;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 32px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer p {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    .footer a:hover { color: var(--green); }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr; gap: 32px; }
+      .phase-card { flex-direction: column; }
+      .section { padding: 48px 0; }
+      .hero { padding: 60px 0 40px; }
+      .pricing-card { padding: 32px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-badge">Science-Backed Protocol</div>
+    <h1>The #1 Mistake Men Make<br/>With <em>Pelvic Floor Training</em></h1>
+    <p class="hero-sub">
+      You've been told to "just do Kegels." But strengthening a muscle that's already too tight is making things worse. Here's what actually works.
+    </p>
+    <a href="https://pelvicfit.xyz" class="cta-btn" id="hero-cta">Take the Free Assessment →</a>
+    <p class="cta-sub">2-minute quiz · No email required to start · Instant results</p>
+  </div>
+</section>
+
+<!-- ============ THE STORY ============ -->
+<section class="story section" id="story">
+  <div class="container">
+    <div class="fade-in">
+      <p class="story-text">
+        It starts quietly. One night you can't get fully hard. Or you finish before you wanted to. You brush it off — <span class="dim">"just stress."</span>
+      </p>
+      <p class="story-text">
+        But then it happens again. And again. Suddenly, <strong>the bedroom becomes a place of anxiety instead of connection.</strong>
+      </p>
+      <p class="story-text">
+        You start avoiding intimacy. Making excuses. <span class="dim">"Long day at work." "Too tired." "Let's just watch something."</span> But the real reason is different — you're scared of failing again.
+      </p>
+    </div>
+
+    <div class="fade-in">
+      <p class="story-text">
+        So you Google solutions. You try breathing techniques, distraction methods, maybe even numbing creams. <strong>Nothing sticks.</strong> Every failed attempt deepens the shame.
+      </p>
+      <p class="story-text">
+        Sound familiar? You're not alone. <span class="highlight">Over 30 million men in the US alone experience this — most silently, most without understanding why.</span>
+      </p>
+      <p class="story-text">
+        But here's the thing nobody tells you: <strong>this isn't about confidence, willpower, or aging. It's about a specific muscle group that's been trained wrong your entire life.</strong>
+      </p>
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;" class="fade-in">
+      <a href="https://pelvicfit.xyz" class="cta-btn">Find Out What's Really Going On →</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============ MYTH BUSTING ============ -->
+<section class="section" id="myths">
+  <div class="container">
+    <div class="protocol-header fade-in">
+      <h2>Everything You've Been Told Is Wrong</h2>
+      <p>The fitness industry has been giving men terrible advice about pelvic floor health.</p>
+    </div>
+
+    <div class="myth-card fade-in">
+      <div class="myth-label">❌ Myth #1</div>
+      <h3>"Just Do More Kegels"</h3>
+      <p>
+        Doctors and fitness influencers love recommending Kegels. But here's what they don't tell you: <strong>most men already have a pelvic floor that's too tight</strong> — a condition called hypertonicity. Doing Kegels on a tight muscle is like clenching a fist that's already cramped. It makes things worse.
+      </p>
+      <p style="margin-top: 12px;">
+        That's why men do Kegels religiously for months and see zero improvement — or get worse.
+      </p>
+      <div class="truth-label">✓ The Truth</div>
+      <p>
+        You need to learn to <strong>relax</strong> your pelvic floor first, then selectively strengthen the right muscles. This is how pelvic floor physiotherapists actually treat patients — but most men never see one.
+      </p>
+    </div>
+
+    <div class="myth-card fade-in">
+      <div class="myth-label">❌ Myth #2</div>
+      <h3>"It's All In Your Head — Just Relax"</h3>
+      <p>
+        If this were purely psychological, therapy would fix everyone. But it doesn't. Confident, successful, healthy men experience this too. Why?
+      </p>
+      <p style="margin-top: 12px;">
+        Because the root cause is <strong>neuromuscular</strong> — your nervous system has learned patterns from years of sitting, stress, and rushed habits. Your body is stuck in a sympathetic (fight-or-flight) state that prevents proper blood flow and muscle control.
+      </p>
+      <div class="truth-label">✓ The Truth</div>
+      <p>
+        You can't "think" your way out of a physical problem. You need to retrain the muscles and nerve pathways involved in arousal and control.
+      </p>
+    </div>
+
+    <div class="myth-card fade-in">
+      <div class="myth-label">❌ Myth #3</div>
+      <h3>"Pills & Creams Are the Only Option"</h3>
+      <p>
+        ED pills force blood flow temporarily — they don't fix the underlying issue. Stop taking them and you're back to square one. Numbing creams? You lose all sensation. Neither addresses <strong>why</strong> your body isn't performing.
+      </p>
+      <p style="margin-top: 12px;">
+        The average man spends <strong>$300–500/year</strong> on these temporary fixes. That's a subscription to a problem, not a solution.
+      </p>
+      <div class="truth-label">✓ The Truth</div>
+      <p>
+        A 2005 clinical trial (the Dorey Protocol) proved that <strong>targeted pelvic floor exercises restored function in 75% of men</strong> — without any pills. The results were permanent.
+      </p>
+    </div>
+
+
+    <div style="text-align:center; margin-top: 40px;" class="fade-in">
+      <a href="https://pelvicfit.xyz" class="cta-btn">Take the Free Quiz — See Your Score →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="stats-section section" id="stats">
+  <div class="container fade-in">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h3>75%</h3>
+        <p>of men saw improvement<br/>in clinical trials</p>
+      </div>
+      <div class="stat-item">
+        <h3>7 min</h3>
+        <p>per day is all<br/>the protocol requires</p>
+      </div>
+      <div class="stat-item">
+        <h3>28</h3>
+        <p>days to complete<br/>the full program</p>
+      </div>
+    </div>
+    <p class="stat-source">Based on the Dorey et al. (2005) randomized controlled trial, published in BJU International</p>
+  </div>
+</section>
+
+<!-- ============ THE PROTOCOL ============ -->
+<section class="section" id="protocol">
+  <div class="container">
+    <div class="protocol-header fade-in">
+      <h2>The 28-Day Protocol</h2>
+      <p>A structured, phase-based program adapted from clinical research</p>
+    </div>
+
+    <div class="phase-card fade-in">
+      <div class="phase-icon p1">🧘</div>
+      <div class="phase-content">
+        <div class="phase-time">Week 1 — Foundation Reset</div>
+        <h3>Learn to Fully Relax</h3>
+        <p>Before you strengthen anything, you need to release the chronic tension in your pelvic floor. This phase uses diaphragmatic breathing and targeted relaxation techniques used by physiotherapists.</p>
+      </div>
+    </div>
+
+    <div class="phase-card fade-in">
+      <div class="phase-icon p2">⚡</div>
+      <div class="phase-content">
+        <div class="phase-time">Week 2 — Targeted Activation</div>
+        <h3>The Bulbospongiosus Isolation</h3>
+        <p>Most men can't isolate this specific muscle. This phase teaches you the "Flick" technique — the precise contraction that controls blood flow and timing. It's the muscle that matters, and it's not the one you think.</p>
+      </div>
+    </div>
+
+    <div class="phase-card fade-in">
+      <div class="phase-icon p3">💪</div>
+      <div class="phase-content">
+        <div class="phase-time">Week 3 — Full-Body Integration</div>
+        <h3>Connect the Chain</h3>
+        <p>Your pelvic floor doesn't work in isolation. This phase integrates glute bridges, deep squats, and hip mobility with pelvic floor engagement — the way your body was designed to move.</p>
+      </div>
+    </div>
+
+    <div class="phase-card fade-in">
+      <div class="phase-icon p4">🏆</div>
+      <div class="phase-content">
+        <div class="phase-time">Week 4 — Mastery</div>
+        <h3>Lock In the Results</h3>
+        <p>Advanced training that makes your new muscle patterns automatic. You stop thinking about control — your body just does it. This is where the clinical trial saw the biggest jumps in improvement.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top: 40px;" class="fade-in">
+      <a href="https://pelvicfit.xyz" class="cta-btn">Get Your Personalized Protocol →</a>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============ WHAT'S INSIDE ============ -->
+<section class="section" id="whats-inside" style="background: var(--bg2);">
+  <div class="container">
+    <div class="protocol-header fade-in">
+      <h2>What's Inside the Protocol</h2>
+      <p>Everything you need — nothing you don't</p>
+    </div>
+
+    <div class="fade-in">
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>Personalized 28-Day Plan</h4>
+          <p>Based on your quiz results, tailored to your specific pelvic floor condition and goals.</p>
+        </div>
+      </div>
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>Daily Exercise Protocols (7 min/day)</h4>
+          <p>Step-by-step routines for each phase — relaxation, activation, and integration. No equipment needed.</p>
+        </div>
+      </div>
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>The Flick Technique Guide</h4>
+          <p>The precise bulbospongiosus isolation method used in clinical pelvic floor therapy. Most programs skip this entirely.</p>
+        </div>
+      </div>
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>Breathing & Relaxation Protocols</h4>
+          <p>90/90 diaphragmatic breathing and nervous system regulation techniques that target the root cause.</p>
+        </div>
+      </div>
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>Nutrition for Blood Flow</h4>
+          <p>Evidence-based foods and supplements that support nitric oxide production and vascular health.</p>
+        </div>
+      </div>
+      <div class="inside-item">
+        <div class="inside-check">✓</div>
+        <div>
+          <h4>Progress Tracking</h4>
+          <p>Weekly benchmarks so you can measure improvement objectively — not just guess.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="pricing-section section" id="pricing">
+  <div class="container fade-in">
+    <div class="protocol-header">
+      <h2>Less Than a Single Doctor Visit</h2>
+      <p>One-time payment. No subscriptions. No hidden fees.</p>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-badge">Most Popular</div>
+      <div class="pricing-old">$39.97</div>
+      <div class="pricing-current">$19.97</div>
+      <div class="pricing-label">One-time · Lifetime access</div>
+      <ul class="pricing-features">
+        <li>Complete 28-Day Protocol</li>
+        <li>Personalized to your quiz results</li>
+        <li>All exercise guides included</li>
+        <li>Nutrition & supplement protocols</li>
+        <li>Instant digital delivery</li>
+      </ul>
+      <a href="https://pelvicfit.xyz" class="cta-btn" style="width: 100%; text-align: center;">Start With the Free Quiz →</a>
+      <div class="guarantee">
+        <span>🛡️</span>
+        <span>14-Day Money-Back Guarantee — No questions asked</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="protocol-header fade-in">
+      <h2>Common Questions</h2>
+    </div>
+
+    <div class="fade-in">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          How soon will I see results?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Most men notice a difference in muscle awareness and control within the first 7 days. Significant improvements in firmness and timing typically begin in weeks 2-3. The full 28-day protocol builds permanent neuromuscular patterns.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          Do I need any equipment?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          No. Every exercise in the protocol uses only your bodyweight. You can do the 7-minute daily routine anywhere — at home, traveling, or at the office. No gym required.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          Is this just Kegels?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          No — that's exactly the mistake most programs make. This protocol starts with pelvic floor relaxation (the opposite of Kegels), then progresses to targeted muscle isolation, and finally full-body integration. It's based on how pelvic floor physiotherapists actually treat patients, not the oversimplified "squeeze and hold" advice you see online.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          Does this work for men over 40?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Yes. The Dorey Protocol clinical trial included men ages 22-78 and showed improvement across all age groups. Pelvic floor training is effective regardless of age — in fact, older men often see the most dramatic improvements because they typically have more room to improve.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          What if it doesn't work for me?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          You're covered by a 14-day money-back guarantee. If you follow the protocol and don't see improvement, email support@pelvicfit.xyz for a full refund. No questions asked.
+        </div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-question">
+          Is this backed by real science?
+          <span>+</span>
+        </div>
+        <div class="faq-answer">
+          Yes. The protocol is adapted from the Dorey et al. (2005) randomized controlled trial published in BJU International, which showed 75% of men restored function with targeted pelvic floor exercises. Additional supporting research from the Journal of Sexual Medicine and International Journal of Impotence Research is referenced throughout the program.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final-cta" id="final-cta">
+  <div class="container fade-in">
+    <h2>Stop Guessing. Start Training.</h2>
+    <p>Find out your pelvic floor score in 2 minutes. Get a personalized protocol built for your specific situation.</p>
+    <a href="https://pelvicfit.xyz" class="cta-btn">Take the Free Assessment →</a>
+    <p class="cta-sub">Free quiz · Instant results · No spam</p>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom: 8px;">© 2026 PelvicFit Men. All rights reserved.</p>
+    <p>
+      <a href="/privacy.html">Privacy Policy</a> ·
+      <a href="/terms.html">Terms of Service</a> ·
+      <a href="mailto:support@pelvicfit.xyz">Contact</a>
+    </p>
+    <p style="margin-top: 16px; font-size: 11px; color: #4a5568; line-height: 1.5; max-width: 600px; margin-left: auto; margin-right: auto;">
+      Disclaimer: This product is for educational purposes only and is not intended to diagnose, treat, cure, or prevent any medical condition. Results may vary. Consult a healthcare professional before starting any new exercise program. Statements have not been evaluated by the FDA.
+    </p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  // Fade-in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Track CTA clicks
+  document.querySelectorAll('.cta-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'ViewContent', {
+          content_name: 'LP_CTA_Click',
+          content_category: 'landing_page'
+        });
+      }
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'lp_cta_click', {
+          event_category: 'engagement',
+          event_label: btn.textContent.trim()
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
