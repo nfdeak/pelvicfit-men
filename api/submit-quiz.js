@@ -3,8 +3,45 @@
  * 
  * Called when user submits their email at Step 22 of the quiz.
  * Saves contact to Brevo as STATUS=lead on the "Unpaid Leads" list.
+ * Appends quiz data to Google Sheet for analytics.
  * Sends a neutral "results ready" email (NOT a purchase confirmation).
  */
+import { google } from 'googleapis';
+
+async function appendToSheet(rowData) {
+  try {
+    const SHEET_ID = process.env.GOOGLE_SHEETS_ID;
+    const SERVICE_ACCOUNT = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
+    
+    if (!SHEET_ID || !SERVICE_ACCOUNT.client_email) {
+      console.log('⚠️ Google Sheets not configured, skipping');
+      return;
+    }
+
+    const auth = new google.auth.GoogleAuth({
+      credentials: SERVICE_ACCOUNT,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: 'Sheet1!A:K',
+      valueInputOption: 'USER_ENTERED',
+      insertDataOption: 'INSERT_ROWS',
+      requestBody: {
+        values: [rowData],
+      },
+    });
+
+    console.log('✅ Row appended to Google Sheet');
+  } catch (err) {
+    console.error('❌ Google Sheets error:', err.message);
+    // Don't throw — Sheets failure shouldn't break the lead capture
+  }
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -49,7 +86,22 @@ export default async function handler(req, res) {
       }),
     });
 
-    // 2. Send neutral "results ready" email (NOT purchase confirmation)
+    // 2. Append to Google Sheet for analytics
+    await appendToSheet([
+      quizData?.timestamp || new Date().toISOString(),
+      email,
+      quizData?.goal || '',
+      quizData?.primary_focus || '',
+      quizData?.experience || '',
+      quizData?.daily_time || '',
+      quizData?.score || '',
+      quizData?.landing_page || '',
+      quizData?.utm_content || '',
+      quizData?.referrer || '',
+      'lead',  // STATUS
+    ]);
+
+    // 3. Send neutral "results ready" email (NOT purchase confirmation)
     const goal = quizData?.goal || 'your goal';
     const score = quizData?.score || '—';
 
@@ -138,7 +190,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      message: 'Lead captured — contact saved, results email sent',
+      message: 'Lead captured — contact saved, sheet updated, results email sent',
       emailId: emailResult.messageId,
     });
 

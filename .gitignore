@@ -8,3 +8,5 @@ pdf-generator/
 scripts/
 images/
 PROJECT_DOCS.md
+.env*.local
+docs/MASTER_REFERENCE.md
