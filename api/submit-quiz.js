@@ -11,7 +11,17 @@ import { google } from 'googleapis';
 async function appendToSheet(rowData) {
   try {
     const SHEET_ID = process.env.GOOGLE_SHEETS_ID;
-    const SERVICE_ACCOUNT = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
+    let SERVICE_ACCOUNT = {};
+    try {
+      SERVICE_ACCOUNT = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
+      // Fix Vercel env var double-escaping of newlines in private_key
+      if (SERVICE_ACCOUNT.private_key) {
+        SERVICE_ACCOUNT.private_key = SERVICE_ACCOUNT.private_key.replace(/\\n/g, '\n');
+      }
+    } catch (parseErr) {
+      console.error('❌ Failed to parse GOOGLE_SERVICE_ACCOUNT:', parseErr.message);
+      return;
+    }
     
     if (!SHEET_ID || !SERVICE_ACCOUNT.client_email) {
       console.log('⚠️ Google Sheets not configured, skipping');
