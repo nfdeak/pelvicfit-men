@@ -9,25 +9,27 @@
 import { google } from 'googleapis';
 
 async function appendToSheet(rowData) {
-  try {
-    const SHEET_ID = process.env.GOOGLE_SHEETS_ID;
-    let SERVICE_ACCOUNT = {};
-    try {
-      SERVICE_ACCOUNT = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT || '{}');
-      // Fix Vercel env var double-escaping of newlines in private_key
-      if (SERVICE_ACCOUNT.private_key) {
-        SERVICE_ACCOUNT.private_key = SERVICE_ACCOUNT.private_key.replace(/\\n/g, '\n');
-      }
-    } catch (parseErr) {
-      console.error('❌ Failed to parse GOOGLE_SERVICE_ACCOUNT:', parseErr.message);
-      return;
-    }
-    
-    if (!SHEET_ID || !SERVICE_ACCOUNT.client_email) {
-      console.log('⚠️ Google Sheets not configured, skipping');
-      return;
-    }
+  const SHEET_ID = process.env.GOOGLE_SHEETS_ID;
+  const rawCreds = process.env.GOOGLE_SERVICE_ACCOUNT;
 
+  if (!SHEET_ID) return { ok: false, error: 'GOOGLE_SHEETS_ID not set' };
+  if (!rawCreds) return { ok: false, error: 'GOOGLE_SERVICE_ACCOUNT not set' };
+
+  let SERVICE_ACCOUNT;
+  try {
+    SERVICE_ACCOUNT = JSON.parse(rawCreds);
+  } catch (parseErr) {
+    return { ok: false, error: 'JSON parse failed: ' + parseErr.message, rawLength: rawCreds.length };
+  }
+
+  if (!SERVICE_ACCOUNT.client_email) return { ok: false, error: 'No client_email in parsed creds' };
+
+  // Fix Vercel env var double-escaping of newlines in private_key
+  if (SERVICE_ACCOUNT.private_key) {
+    SERVICE_ACCOUNT.private_key = SERVICE_ACCOUNT.private_key.replace(/\\n/g, '\n');
+  }
+
+  try {
     const auth = new google.auth.GoogleAuth({
       credentials: SERVICE_ACCOUNT,
       scopes: ['https://www.googleapis.com/auth/spreadsheets'],
@@ -35,7 +37,7 @@ async function appendToSheet(rowData) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    await sheets.spreadsheets.values.append({
+    const result = await sheets.spreadsheets.values.append({
       spreadsheetId: SHEET_ID,
       range: 'Sheet1!A:K',
       valueInputOption: 'USER_ENTERED',
@@ -45,10 +47,9 @@ async function appendToSheet(rowData) {
       },
     });
 
-    console.log('✅ Row appended to Google Sheet');
+    return { ok: true, range: result.data.updates?.updatedRange };
   } catch (err) {
-    console.error('❌ Google Sheets error:', err.message);
-    // Don't throw — Sheets failure shouldn't break the lead capture
+    return { ok: false, error: 'Sheets API error: ' + err.message };
   }
 }
 
@@ -97,7 +98,7 @@ export default async function handler(req, res) {
     });
 
     // 2. Append to Google Sheet for analytics
-    await appendToSheet([
+    const sheetResult = await appendToSheet([
       quizData?.timestamp || new Date().toISOString(),
       email,
       quizData?.goal || '',
@@ -110,6 +111,7 @@ export default async function handler(req, res) {
       quizData?.referrer || '',
       'lead',  // STATUS
     ]);
+    console.log('📊 Sheet result:', JSON.stringify(sheetResult));
 
     // 3. Send neutral "results ready" email (NOT purchase confirmation)
     const goal = quizData?.goal || 'your goal';
@@ -200,8 +202,9 @@ export default async function handler(req, res) {
 
     return res.status(200).json({
       success: true,
-      message: 'Lead captured — contact saved, sheet updated, results email sent',
+      message: 'Lead captured',
       emailId: emailResult.messageId,
+      sheet: sheetResult || { ok: false, error: 'no result' },
     });
 
   } catch (error) {
