@@ -9,7 +9,7 @@
 import { google } from 'googleapis';
 
 async function appendToSheet(rowData) {
-  const SHEET_ID = process.env.GOOGLE_SHEETS_ID;
+  const SHEET_ID = (process.env.GOOGLE_SHEETS_ID || '').trim();
   const rawCreds = process.env.GOOGLE_SERVICE_ACCOUNT;
 
   if (!SHEET_ID) return { ok: false, error: 'GOOGLE_SHEETS_ID not set' };
